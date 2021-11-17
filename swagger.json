@@ -1,0 +1,192 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API-TIPOCAMBIO",
+    "version": "1.0.0",
+    "description": "Calcula monto acorde a un tipo de cambio"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9091/api-tipo-cambio/V1"
+    }
+  ],
+  "paths": {
+    "/exchange": {
+      "post": {
+        "summary": "Calcula monto acorde a un tipo de cambio",
+        "description": "Calcula monto acorde a un tipo de cambio",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "usuarioTrx",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Calcula monto acorde a un tipo de cambio",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExchangeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Respuesta del servicio tipo de cambio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeResponse"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Creado"
+          },
+          "401": {
+            "description": "No autorizado"
+          },
+          "403": {
+            "description": "Prohibido"
+          },
+          "404": {
+            "description": "No se encuentra el recurso"
+          },
+          "500": {
+            "description": "Error interno de servidor"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "summary": "Valida el usuario y retorna token",
+        "description": "Valida el usuario y retorna token",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "usuarioTrx",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "password",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta del servicio de seguridad",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecurityResponse"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Creado"
+          },
+          "401": {
+            "description": "No autorizado"
+          },
+          "403": {
+            "description": "Prohibido"
+          },
+          "404": {
+            "description": "No se encuentra el recurso"
+          },
+          "500": {
+            "description": "Error interno de servidor"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SecurityResponse": {
+        "title": "SecurityResponse",
+        "description": "Response de Security",
+        "type": "object",
+        "properties": {
+          "tipoToken": {
+            "description": "TIpo del token",
+            "example": "Bearer",
+            "type": "string"
+          },
+          "tiempoExpira": {
+            "description": "Tiempo de expiracion del token",
+            "example": 403,
+            "type": "number"
+          },
+          "token": {
+            "description": "token de seguridad.",
+            "example": "654644das65d4s6546f4d6f4ds6f",
+            "type": "string"
+          }
+        }
+      },
+      "ExchangeResponse": {
+        "title": "ExchangeResponse",
+        "description": "Response de Exchange",
+        "type": "object",
+        "properties": {
+          "monedaDestino": {
+            "description": "Moneda destino del cambio.",
+            "example": "USD",
+            "type": "string"
+          },
+          "montoDestino": {
+            "description": "Monto destino de la operación",
+            "example": 403,
+            "type": "number"
+          },
+          "mensaje": {
+            "description": "respuesta.",
+            "example": "Operacion correcta",
+            "type": "string"
+          }
+        }
+      },
+      "ExchangeRequest": {
+        "title": "ExchangeRequest",
+        "description": "Request de Exchange",
+        "type": "object",
+        "properties": {
+          "monedaOrigen": {
+            "description": "Moneda de origen",
+            "example": "USD",
+            "type": "string"
+          },
+          "montoOrigen": {
+            "description": "Monto de origen",
+            "example": 100,
+            "type": "number"
+          },
+          "monedaDestino": {
+            "description": "Moneda de destino",
+            "example": "PEN",
+            "type": "string"
+          },
+          "tipoCambio": {
+            "description": "Tipo de cambio a operar",
+            "example": 4.03,
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}
